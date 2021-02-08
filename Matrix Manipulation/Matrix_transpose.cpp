@@ -35,15 +35,15 @@ public:
         return _data[i * _col + j];
     }
 
-    void naive_transpose() {
+    void naive_transpose () {
         vector<int> dataT(int(_data.size()));
-        for (int i = 0; i < _data.size(); ++i) {
-            int n_col = i / _col;
-            int n_row = i % _col;
-            dataT[n_row * _row + n_col] = _data[i]; 
+        std::swap(_row, _col);
+        for (int i = 0 ; i < data.size() ; ++i) {
+            int n_col = i / _row; // row for now is the new "row"
+            int n_row = i % _row;
+            dataT[n_row * _col + n_col] = data[i];
         }
         _data = dataT;
-         std::swap(_row, _col);
     }
 
     void transpose() {

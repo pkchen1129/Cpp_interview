@@ -1,3 +1,4 @@
+// Ch9 p.243
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -19,7 +20,16 @@ public:
         // buffer = NULL;
         buffer = new char[strlen(copy_.buffer) + 1];
         strcpy(buffer, copy_.buffer);
+        cout << "copy constructor" << endl;
     }   
+    // This is a copy assignment operator=
+    MyString& operator= (const MyString& copy_)
+    {
+         buffer = new char[strlen(copy_.buffer) + 1];
+         strcpy(buffer, copy_.buffer);
+        cout << "copy assignment operator=" << endl;
+
+    }
     ~MyString()
     {
         delete [] buffer;
@@ -45,11 +55,16 @@ void CopyMyString(MyString s)
 }
 
 int main(){
+    /*Call Copy constructor*/
     MyString s("This is life");
-    CopyMyString(s);
-    // However, if you want to do the following, it would still be shallow copy. If want deep copy, do the copy assignemnet operator!!!!!
-    /*
-    MyString overwite("Who cares?");
-    overwrite = s;
-    */
+    // CopyMyString(s); // A way to call copy constructor
+    MyString a = s; // Another way to call copy constructor
+    MyString b(s); // Another way to call copy constructor
+
+
+
+    /*Call copy Assignment operator=*/
+    MyString c("Who cares?");
+    c = s;
+
 }

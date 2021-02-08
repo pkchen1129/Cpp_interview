@@ -5,8 +5,8 @@ using namespace std;
 class Counter {
 public:
     Counter() : m_counter(0) {}
-    Counter(const Counter& other) = delete; // Copy constructor
-    Counter& operator=(const Counter& other) = delete;
+    Counter(const Counter& other) = delete; // Disallow Copy constructor
+    Counter& operator=(const Counter& other) = delete; //Disallow Copy assignment operator
 
     ~Counter() = default;
 
@@ -43,12 +43,13 @@ private:
 **/
 class SharedPtr {
 public:
+    // Default Constructor (avoid it having implicit conversion)
     explicit SharedPtr(int* ptr) : m_ptr(ptr) {
         m_counter = new Counter();
         if (ptr)
             ++(*m_counter);
     }
-    //
+    // Copy constructor
     SharedPtr(const SharedPtr& other) {
         m_ptr = other.m_ptr;
         m_counter = other.m_counter;
@@ -69,7 +70,7 @@ public:
     int* operator->() {
         return m_ptr;
     }
-
+    // Implementing the dereference Returning the 
     int& operator*() {
         return *m_ptr;
     }

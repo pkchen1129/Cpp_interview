@@ -42,7 +42,7 @@ private:
     T* m_ptr;
 public:
     explicit UniquePtr(T* ptr) : m_ptr(ptr) {}
-    UniquePtr(const UniquePtr<T>& other) = delete;
+    UniquePtr(const UniquePtr<T>& other) = delete; // Important in unique ptr!!!
     UniquePtr(UniquePtr<T>&& ptr)
         : m_ptr(std::move(&ptr))
     {
