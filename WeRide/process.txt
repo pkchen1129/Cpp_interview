@@ -1,0 +1,52 @@
+	1 phone
+	(1 - 2 additional phone)
+	onsite 4 phases
+
+	need new grad full stack
+	//
+	work time : ca 10:00 - 18:00
+	location : SAN JOSE
+	ROBOT BUS/ TAXI
+	
+	//
+	phone interview
+	please build a graph with vertex and directed edge
+	please get all source vertex
+	dfs
+	ex: 
+	input : [1 -> 2 ->3 -> 4] 
+	output [1]
+	
+	input : [1 -> 2,  2->3 -> 4->2] 
+	output [1]
+
+	input : [1 -> 2,  2->3 -> 4->2, 5] 
+	output [1, 5]
+
+
+	////////
+	onsite
+
+	office 有飯吃
+
+	1.
+	resume -> bicycle model
+	sliding window -> find max length of a V shape subarray from a vector 
+
+	2.
+	冠珍珍
+	BFS
+
+	q&a 
+	the control strategy : prone pursuit(?) -> PID -> LQR -> ILQR
+
+	3. Chunlin Feng
+	leetcode 309
+
+	4. zeyin zhang
+	find max rate from k stocks in n days
+	{{100 200 300 400 500 600 700},
+	{200 200 200 200 200 400 400}}
+	k = 2, n = 7
+	
+	return (400/100)*(400/200) = 8

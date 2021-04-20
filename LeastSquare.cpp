@@ -38,31 +38,53 @@ public:
 
 };
 
-int main(int argc, char *argv[])
-{
-    if(argc != 2)
-    {
-        cout<<"Usage: DataFile.txt"<<endl;
-        return -1;
-    }
-    else
-    {
-        vector<double> x;
-        ifstream in(argv[1]);
-        for(double d; in>>d; )
-            x.push_back(d);
-        int sz = x.size();
-        vector<double> y(x.begin()+sz/2, x.end());
-        x.resize(sz/2);
-        LeastSquare ls(x, y);
-        ls.print();
 
+int main() 
+{
+    vector<double> x;
+    vector<double> y;
+
+    x = {95, 85, 80, 70, 60};
+    y = {90, 80, 70, 65, 60};
+    LeastSquare ls(x, y);
+    ls.print();
+
+    cout<<"Input x:\n";
+    double x0;
+    while(cin>>x0)
+    {
+        cout<<"y = "<<ls.getY(x0)<<endl;
         cout<<"Input x:\n";
-        double x0;
-        while(cin>>x0)
-        {
-            cout<<"y = "<<ls.getY(x0)<<endl;
-            cout<<"Input x:\n";
-        }
     }
+
 }
+
+
+// int main(int argc, char *argv[])
+// {
+//     if(argc != 2)
+//     {
+//         cout<<"Usage: DataFile.txt"<<endl;
+//         return -1;
+//     }
+//     else
+//     {
+//         vector<double> x;
+//         ifstream in(argv[1]);
+//         for(double d; in>>d; )
+//             x.push_back(d);
+//         int sz = x.size();
+//         vector<double> y(x.begin()+sz/2, x.end());
+//         x.resize(sz/2);
+//         LeastSquare ls(x, y);
+//         ls.print();
+
+//         cout<<"Input x:\n";
+//         double x0;
+//         while(cin>>x0)
+//         {
+//             cout<<"y = "<<ls.getY(x0)<<endl;
+//             cout<<"Input x:\n";
+//         }
+//     }
+// }

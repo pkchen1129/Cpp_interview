@@ -5,9 +5,9 @@ class President
 private:
     // Private default constructor: Can't declare outside!!!
     President(){};
-    //Create private copy constructor
+    // Create private copy constructor
     President(const President& copy_president);
-    //Create private copy assignment operator
+    // Create private copy assignment operator
     President& operator= (const President&);
 public:
     // President(){};
