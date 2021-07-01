@@ -50,3 +50,76 @@
 	k = 2, n = 7
 	
 	return (400/100)*(400/200) = 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+using namespace std;
+
+
+vector<int> check_pile (vector<vector<int>> v) {
+    // Construct graph
+    unordered_map<int, vector<int>> graph;
+    unordered_set<int> s;
+    for (int i = 0 ; i < v.size() ; ++i) {
+        if (v[i].size() == 1) {
+            vector<int> zero;
+            graph[v[i][0]] = zero;
+            s.insert(v[i][0]);
+            continue;
+        }
+        for (int j = 0 ; j < v[i].size() - 1 ; ++j) {
+            if (!s.count(v[i][j])) s.insert(v[i][j]);
+
+            graph[v[i][j]].push_back(v[i][j+1]);
+        }
+    }
+    // for (auto element : graph) {
+    //     cout << element.first << endl;
+    // }
+    for (auto element : graph) {
+        if (element.second.empty()) continue;
+        for (auto e : element.second) {
+            if (s.count(e)) {
+                s.erase(e);
+            }
+        }
+
+    }
+    // Iterate through set
+
+    vector<int> ans(s.begin(), s.end());
+    return ans;
+
+    
+}
+
+int main()
+{
+    vector<vector<int>> v = {{1,2}, {2,3,4,2} ,{5}};
+    vector<int> ans = check_pile(v);
+    for (auto& element : ans) {
+        cout << element << ", ";
+    }
+
+    return 0;
+}

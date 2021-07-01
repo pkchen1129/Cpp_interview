@@ -3,11 +3,11 @@
 class President
 {
 private:
-    // Private default constructor: Can't declare outside!!!
+    // 1. Private default constructor: Can't declare outside!!!
     President(){};
-    // Create private copy constructor
+    // 2. Create private copy constructor
     President(const President& copy_president);
-    // Create private copy assignment operator
+    // 3. Create private copy assignment operator
     President& operator= (const President&);
 public:
     // President(){};
@@ -24,7 +24,7 @@ int main(){
 
     //The followings are some incorrect ways
     /*
-    1. Can't access default constructor, stack or heap
+    1. Can't access private default constructor, stack or heap
     President second;
     President* third = new President();
 

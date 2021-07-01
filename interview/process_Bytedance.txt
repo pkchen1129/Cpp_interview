@@ -1,0 +1,60 @@
+	new grad
+	
+	ar effect team (tools)
+
+	software engineer
+
+	3rounds
+	
+	2 technical phone
+		coding 
+		domain 
+	1 hiring manager
+
+
+	/////////////////////////////////////////
+	2 foreign engineers (1 india + i unknown)
+	coding:
+		dfs number of islands
+	c++ :   
+		array & linked list
+		inheritence
+		virtual function
+
+	///////////////////////////////////
+	1 chinese engineer
+	Anda Li
+	C++
+		VFT
+		struct vs class
+		quaterion vs euler vs matrix
+		x* = qxq-1	
+	coding:
+		given (1, 10), (15, 17), (20, 300)
+		target = 6	
+		return whether target is in any intervals
+		(intervals is not sorted)
+		
+	follow up:
+		1. overlapping intervals
+		2. return the index in original order
+	///////////////////////////////
+
+	Xing Mei
+	AR team
+	totally resumne
+	coding 
+		box filter
+		given [1, 2, 3]
+		      [4, 5, 6]
+		      [7, 8, 9]
+		 	
+		      window size = 3 * 3 (always odd)
+
+ 		return [3, 21/6, 4]
+		       [27/6, 5, 33/6]
+		       [6, 39/6, 28/4]
+///////////////////////////////////
+reject
+
+

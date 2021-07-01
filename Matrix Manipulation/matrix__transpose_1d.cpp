@@ -38,10 +38,10 @@ public:
     void naive_transpose () {
         vector<int> dataT(int(_data.size()));
         std::swap(_row, _col);
-        for (int i = 0 ; i < data.size() ; ++i) {
+        for (int i = 0 ; i < _data.size() ; ++i) {
             int n_col = i / _row; // row for now is the new "row"
             int n_row = i % _row;
-            dataT[n_row * _col + n_col] = data[i];
+            dataT[n_row * _col + n_col] = _data[i];
         }
         _data = dataT;
     }

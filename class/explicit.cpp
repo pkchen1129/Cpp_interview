@@ -11,6 +11,6 @@ public:
 int main(){
     //explicit conversion is ok
     Human kid(10);
-    //If add explicit, implicit conversion is not ok
+    //If add explicit, implicit conversion is not ok, so it could only
     // Human kid2 = 10;
 }
