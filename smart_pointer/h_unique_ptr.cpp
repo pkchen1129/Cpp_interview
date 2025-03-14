@@ -1,82 +1,75 @@
 #include <iostream>
 
-using namespace std;
-
-// template <class T>
-// class SmartPtr{
-// public:
-// 	explicit SmartPtr(T *p){
-// 	    ptr = p;
-// 	    cout<< "create" << endl;
-//     }
-
-//     ~SmartPtr(){
-//     	cout<< "destroy" << endl;
-//     	delete (ptr);
-//     }
-//     T & operator * () {  return *ptr; } 
-//     T * operator -> () { return ptr; } 
-// private:
-// 	T *ptr;
-
-// }; 
-
-// int main()
-// {
-//     SmartPtr<int> ptr (new int());
-//     *ptr = 20;
-//     cout<< *ptr <<endl;
-
-//     return 0;
-// }
-
-
-
-
-// Unique Pointer
-#include <iostream>
-
+// Unique Pointer class
 template <typename T>
-class UniquePtr {
+class UniquePointer {
 private:
-    T* m_ptr;
+    T* ptr; // Raw pointer
+
 public:
-    explicit UniquePtr(T* ptr) : m_ptr(ptr) {}
-    UniquePtr(const UniquePtr<T>& other) = delete; // Important in unique ptr!!!
-    UniquePtr(UniquePtr<T>&& ptr)
-        : m_ptr(std::move(&ptr))
-    {
-        ptr.m_ptr = nullptr;
+    // Constructor
+    explicit UniquePointer(T* p = nullptr) : ptr(p) {}
+
+    // Destructor - deletes the managed object
+    ~UniquePointer() {
+        delete ptr;
     }
-    ~UniquePtr() {
-        delete m_ptr;
+
+    // Delete copy constructor and copy assignment operator
+    UniquePointer(const UniquePointer&) = delete;
+    UniquePointer& operator=(const UniquePointer&) = delete;
+
+    // Move constructor
+    UniquePointer(UniquePointer&& other) noexcept : ptr(other.ptr) {
+        other.ptr = nullptr;
     }
-    
-    UniquePtr<T>& operator=(UniquePtr<T> &&ptr) {
-        if (this != ptr) {
-            delete m_ptr;
-            m_ptr = ptr.m_ptr;
-            ptr.m_ptr = nullptr;
-        } 
+
+    // Move assignment operator
+    UniquePointer& operator=(UniquePointer&& other) noexcept {
+        if (this != &other) {
+            delete ptr; // Free existing resource
+            ptr = other.ptr;
+            other.ptr = nullptr;
+        }
         return *this;
     }
-    
-    UniquePtr<T>& operator=(const UniquePtr<T>& uptr) = delete;
-    
-    T* operator-> () {
-        return m_ptr;
+
+    // Overload dereference operator
+    T& operator*() const { return *ptr; }
+
+    // Overload arrow operator
+    T* operator->() const { return ptr; }
+
+    // Get raw pointer (for debugging or special use cases)
+    T* get() const { return ptr; }
+
+    // Release ownership of the managed object
+    T* release() {
+        T* temp = ptr;
+        ptr = nullptr;
+        return temp;
     }
-    T& operator* () {
-        return *m_ptr;
+
+    // Reset the unique pointer with a new object
+    void reset(T* newPtr = nullptr) {
+        delete ptr;
+        ptr = newPtr;
     }
 };
 
-
+// Example usage
+class Test {
+public:
+    void show() { std::cout << "Test class method called!" << std::endl; }
+};
 
 int main() {
-    int* a = new int(2);
-    int* b = a;
-    UniquePtr<int> uptr(a);
-    // UniquePtr<int> uptr2 = a;
-    std::cout << *a;
+    UniquePointer<Test> up(new Test()); // Creating a unique pointer
+    up->show(); // Accessing methods using -> operator
+
+    UniquePointer<int> upInt(new int(42));
+    // UniquePointer<int> upInt = new int(42); // Error. bc of explicit constructor
+    std::cout << "UniquePointer holds: " << *upInt << std::endl;
+    
+    return 0;
 }
