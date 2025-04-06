@@ -61,15 +61,38 @@ public:
 class Test {
 public:
     void show() { std::cout << "Test class method called!" << std::endl; }
+}
+// int main() {
+//     UniquePointer<Test> up(new Test()); // Creating a unique pointer
+//     up->show(); // Accessing methods using -> operator
+
+//     UniquePointer<int> upInt(new int(42));
+//     // UniquePointer<int> upInt = new int(42); // Error. bc of explicit constructor
+//     std::cout << "UniquePointer holds: " << *upInt << std::endl;
+
+    
+    
+//     return 0;
+// }
+class Test {
+public:
+    void hello() {
+        cout << "Hello from Test!" << endl;
+    }
 };
 
 int main() {
-    UniquePointer<Test> up(new Test()); // Creating a unique pointer
-    up->show(); // Accessing methods using -> operator
+    UniquePtr<Test> p1(new Test());
 
-    UniquePointer<int> upInt(new int(42));
-    // UniquePointer<int> upInt = new int(42); // Error. bc of explicit constructor
-    std::cout << "UniquePointer holds: " << *upInt << std::endl;
-    
-    return 0;
+    UniquePtr<Test> p2 = std::move(p1);  // Move construct
+
+    if (p1.get() == nullptr) {
+        cout << "p1 is empty after move." << endl;
+    }
+
+    p2.reset(new Test());  // Reset 指到新物件
+
+    UniquePtr<Test> p3;
+    p3 = std::move(p2);  // Move assign
 }
+
