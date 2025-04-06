@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+template<typename T>
 class Counter {
 public:
     Counter() : m_counter(0) {}
@@ -44,7 +45,7 @@ private:
 class SharedPtr {
 public:
     // Default Constructor (avoid it having implicit conversion)
-    explicit SharedPtr(int* ptr) : m_ptr(ptr) {
+    explicit SharedPtr(T* ptr) : m_ptr(ptr) {
         m_counter = new Counter();
         if (ptr)
             ++(*m_counter);
@@ -63,15 +64,15 @@ public:
         }
     }
     
-    int* get() { 
+    T* get() { 
         return m_ptr; 
     } 
 
-    int* operator->() {
+    T* operator->() {
         return m_ptr;
     }
     // Implementing the dereference Returning the 
-    int& operator*() {
+    T& operator*() {
         return *m_ptr;
     }
     
@@ -83,7 +84,7 @@ public:
 
 
 private:
-    int* m_ptr;
+    T* m_ptr;
     Counter* m_counter; 
 };
 
@@ -134,144 +135,3 @@ int main() {
   
     return 0; 
 }
-
-
-
-
-
-
-
-
-
-// //// Template Method
-// #include <iostream>
-// #include <string>
-// using namespace std;
-// class Counter {
-// public:
-//     Counter() : m_counter(0) {}
-//     Counter(const Counter& other) = delete;
-//     Counter& operator=(const Counter& other) = delete;
-
-//     ~Counter() = default;
-
-//     void reset() {
-//         m_counter = 0;
-//     }
-
-//     size_t get() {
-//         return m_counter;
-//     }
-
-//     void operator++() {
-//         ++m_counter;
-//     }
-
-//     void operator--() {
-//         --m_counter;
-//     }
-
-//         // Overloading << operator 
-//     friend ostream& operator<<(ostream& os, const Counter& counter) 
-//     { 
-//         os << "Counter Value : "
-//            << counter.m_counter << endl; 
-//     } 
-// private: 
-//     size_t m_counter; 
-    
-// };
-
-// template<typename T>
-// class SharedPtr {
-// public:
-//     explicit SharedPtr(T* ptr) : m_ptr(ptr) {
-//         m_counter = new Counter();
-//         if (ptr)
-//             ++(*m_counter);
-//     }
-//     SharedPtr(const SharedPtr<T>& other) {
-//         m_ptr = other.m_ptr;
-//         m_counter = other.m_counter;
-//         ++(*m_counter);
-//     }
-//     ~SharedPtr() {
-//         --(*m_counter);
-//         if (!m_counter->get()) {
-//             delete m_counter;
-//             delete m_ptr;
-//         }
-//     }
-    
-//     T* get() { 
-//         return m_ptr; 
-//     } 
-
-//     T* operator->() {
-//         return m_ptr;
-//     }
-
-//     T& operator*() {
-//         return *m_ptr;
-//     }
-    
-//     friend ostream& operator<<(ostream& os, SharedPtr<T>& sp) { 
-//         os << "Address pointed : "
-//            << sp.get() << endl; 
-//         cout << *(sp.m_counter) << endl; 
-//     } 
-
-
-// private:
-//     T* m_ptr;
-//     Counter* m_counter; 
-// };
-
-// int main() { 
-//     // ptr1 pointing to an integer. 
-//     SharedPtr<string> ptr1(new string("abc")); 
-//     cout << "--- Shared pointers ptr1 ---\n"; 
-//     *ptr1 = "foo"; 
-//     cout << " ptr1's value now: " << *ptr1 << endl; 
-//     cout << ptr1; 
-  
-//     { 
-//         // ptr2 pointing to same integer 
-//         // which ptr1 is pointing to 
-//         // Shared pointer reference counter 
-//         // should have increased now to 2. 
-//         SharedPtr<string> ptr2 = ptr1; 
-//         cout << "--- Shared pointers ptr1, ptr2 ---\n"; 
-//         cout << ptr1; 
-//         cout << ptr2; 
-  
-//         { 
-//             // ptr3 pointing to same integer 
-//             // which ptr1 and ptr2 are pointing to. 
-//             // Shared pointer reference counter 
-//             // should have increased now to 3. 
-//             SharedPtr<string> ptr3(ptr2); 
-//             cout << "--- Shared pointers ptr1, ptr2, ptr3 ---\n"; 
-//             cout << ptr1; 
-//             cout << ptr2; 
-//             cout << ptr3; 
-//         } 
-  
-//         // ptr3 is out of scope. 
-//         // It would have been destructed. 
-//         // So shared pointer reference counter 
-//         // should have decreased now to 2. 
-//         cout << "--- Shared pointers ptr1, ptr2 ---\n"; 
-//         cout << ptr1; 
-//         cout << ptr2; 
-//     } 
-  
-//     // ptr2 is out of scope. 
-//     // It would have been destructed. 
-//     // So shared pointer reference counter 
-//     // should have decreased now to 1. 
-//     cout << "--- Shared pointers ptr1 ---\n"; 
-//     cout << ptr1; 
-  
-//     return 0; 
-// } 
