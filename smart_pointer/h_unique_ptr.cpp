@@ -2,6 +2,7 @@
 
 // Unique Pointer class
 template <typename T>
+// only use in make_unique:     template <typename T, typename... Args>
 class UniquePointer {
 private:
     T* ptr; // Raw pointer
@@ -55,6 +56,10 @@ public:
         delete ptr;
         ptr = newPtr;
     }
+    // make_unique
+    UniquePtr<T> make_unique(Args&&... args) {
+        return UniquePtr<T>(new T(std::forward<Args>(args)...));
+    }
 };
 
 // Example usage
@@ -62,18 +67,7 @@ class Test {
 public:
     void show() { std::cout << "Test class method called!" << std::endl; }
 }
-// int main() {
-//     UniquePointer<Test> up(new Test()); // Creating a unique pointer
-//     up->show(); // Accessing methods using -> operator
 
-//     UniquePointer<int> upInt(new int(42));
-//     // UniquePointer<int> upInt = new int(42); // Error. bc of explicit constructor
-//     std::cout << "UniquePointer holds: " << *upInt << std::endl;
-
-    
-    
-//     return 0;
-// }
 class Test {
 public:
     void hello() {
@@ -82,6 +76,8 @@ public:
 };
 
 int main() {
+    UniquePointer<int> upInt(new int(42));
+    UniquePointer<int> upInt = new int(42); // Error. bc of explicit constructor
     UniquePtr<Test> p1(new Test());
 
     UniquePtr<Test> p2 = std::move(p1);  // Move construct
@@ -95,4 +91,11 @@ int main() {
     UniquePtr<Test> p3;
     p3 = std::move(p2);  // Move assign
 }
+/*
+1. 禁止 copy
+2. 支援 move
+3. 自動 delete
+4. get() / reset() / release() 基本 API
+5. * / -> 支援用法
 
+*/
